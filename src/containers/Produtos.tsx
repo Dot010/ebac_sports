@@ -3,37 +3,17 @@ import Produto from '../components/Produto'
 
 import * as S from './styles'
 
+// 1. Simplificamos o tipo Props: Agora o container só precisa da lista de produtos da API
 type Props = {
   produtos: ProdutoType[]
-  favoritos: ProdutoType[]
-  adicionarAoCarrinho: (produto: ProdutoType) => void
-  favoritar: (produto: ProdutoType) => void
 }
 
-const ProdutosComponent = ({
-  produtos,
-  favoritos,
-  adicionarAoCarrinho,
-  favoritar
-}: Props) => {
-  const produtoEstaNosFavoritos = (produto: ProdutoType) => {
-    const produtoId = produto.id
-    const IdsDosFavoritos = favoritos.map((f) => f.id)
-
-    return IdsDosFavoritos.includes(produtoId)
-  }
-
+const ProdutosComponent = ({ produtos }: Props) => {
   return (
     <>
       <S.Produtos>
         {produtos.map((produto) => (
-          <Produto
-            estaNosFavoritos={produtoEstaNosFavoritos(produto)}
-            key={produto.id}
-            produto={produto}
-            favoritar={favoritar}
-            aoComprar={adicionarAoCarrinho}
-          />
+          <Produto key={produto.id} produto={produto} />
         ))}
       </S.Produtos>
     </>
